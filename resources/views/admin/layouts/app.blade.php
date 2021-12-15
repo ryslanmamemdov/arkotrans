@@ -32,9 +32,9 @@
                         @if (Session::has('message'))
                             <div class="alert alert-success" role="alert">{!! Session::get('message') !!}</div>
                         @endif
-                        @if ($errors && $errors->any())
+                        @if ($errors->any())
                             <div class="alert alert-danger">
-                                <ul>
+                                <ul style="margin-bottom: 0;">
                                     @foreach ($errors->all() as $error)
                                         <li>{{ $error }}</li>
                                     @endforeach
@@ -57,6 +57,7 @@
     <!-- Option 1: CoreUI for Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.1.0/dist/js/coreui.bundle.min.js" crossorigin="anonymous">
     </script>
+
 </body>
 
 </html>

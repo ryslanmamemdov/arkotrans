@@ -21,5 +21,7 @@ Route::get('/drivers', [DriversController::class, 'index'])->name('drivers');
 Route::get('/drivers/add', [DriversController::class, 'add'])->name('driver.add');
 Route::get('/drivers/edit/{id}', [DriversController::class, 'edit'])->name('driver.edit');
 Route::post('/drivers/store', [DriversController::class, 'store'])->name('driver.store');
+Route::post('/drivers/update/{id}', [DriversController::class, 'update'])->name('driver.update');
+Route::get('/drivers/delete/{id}', [DriversController::class, 'delete'])->name('driver.delete');
 
 Auth::routes();

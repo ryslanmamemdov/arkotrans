@@ -17,8 +17,8 @@ class CreateDriversTable extends Migration
             $table->id();
             $table->text('name');
             $table->text('surname');
-            $table->text('phone');
-            $table->text('email');
+            $table->int('dob');
+            $table->text('email')->nullable();
             $table->timestamps();
         });
     }
