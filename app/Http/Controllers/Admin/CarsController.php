@@ -4,9 +4,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\DataType;
 use App\Models\Transport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+
+use function PHPSTORM_META\type;
 
 class CarsController extends Controller
 {
@@ -37,7 +40,10 @@ class CarsController extends Controller
     {
         $item = new Transport();
         $title = 'Новая машина';
-        return view('admin.cars.addedit',['item' => $item, 'title' => $title]);
+        $dataTypeList = DataType::getDataTypesForCar();
+        $dataTypeView = view('admin.partials.datatypes', compact('dataTypeList'));
+
+        return view('admin.cars.addedit',['item' => $item, 'title' => $title, 'dataTypeView' => $dataTypeView ]);
     }
 
     public function store(Request $request)
@@ -61,7 +67,9 @@ class CarsController extends Controller
         $item = Transport::find($id);
         if ($item)
             $title = 'Редактировать манишу';
-            return view('admin.cars.addedit', compact('item', 'title'));
+            $dataTypeList = DataType::getDataTypesForCar();
+            $dataTypeView = view('admin.partials.datatypes', compact('dataTypeList'));
+            return view('admin.cars.addedit', compact('item', 'title', 'dataTypeView'));
 
         session()->flash('error', 'Не найдено!');
         return redirect(route('cars'));
@@ -69,7 +77,7 @@ class CarsController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validator = self::validateRequest($request);
+        $validator = self::validateRequest($request,$id);
         if ($validator->passes()) {
             $item = Transport::updateRecord($request, $id);
 
@@ -94,10 +102,10 @@ class CarsController extends Controller
         return redirect(route('cars'));
     }
 
-    public function validateRequest(Request $request)
+    public static function validateRequest(Request $request, $id = null)
     {
         $rules = [
-            'number' => 'required|unique:transports|max:10'
+            'number' => 'required|max:10|unique:transports,number,'.$id
         ];
         $message = [
             'number.required' => 'Поле Номер обязательно для заполнения',

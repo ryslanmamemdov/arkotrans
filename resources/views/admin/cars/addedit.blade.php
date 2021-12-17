@@ -22,6 +22,9 @@
                         <label class="form-check-label" for="status">Cтатус</label>
                     </div>
                 </div>
+
+                {!!$dataTypeView!!}
+
                 <input type="hidden" name="type" value="{{\App\Models\Transport::CARS}}" />
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-outline-primary">Сохранить</button>

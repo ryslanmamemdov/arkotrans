@@ -37,7 +37,7 @@ class TransportDataTypesController extends Controller
     {
         $item = new DataType();
         $title = 'Новый тип';
-        return view('admin.transportdatatypes.addedit',['item' => $item, 'title' => $title]);
+        return view('admin.transportdatatypes.addedit', ['item' => $item, 'title' => $title]);
     }
 
     public function store(Request $request)
@@ -47,7 +47,7 @@ class TransportDataTypesController extends Controller
         if ($validator->passes()) {
             $item = DataType::storeRecord($request);
 
-            session()->flash('message', 'Добавлая новая машина - '.$item->number);
+            session()->flash('message', 'Добавлено новое поле - ' . $item->name);
             return redirect(route('transportdatatypes'));
         }
 
@@ -61,7 +61,7 @@ class TransportDataTypesController extends Controller
         $item = DataType::find($id);
         if ($item)
             $title = 'Редактировать тип';
-            return view('admin.transportdatatypes.addedit', compact('item', 'title'));
+        return view('admin.transportdatatypes.addedit', compact('item', 'title'));
 
         session()->flash('error', 'Не найдено!');
         return redirect(route('transportdatatypes'));
@@ -73,19 +73,19 @@ class TransportDataTypesController extends Controller
         if ($validator->passes()) {
             $item = DataType::updateRecord($request, $id);
 
-            session()->flash('message', 'Тип '.$item->number.' отредактирован');
+            session()->flash('message', 'Тип "' . $item->name . '" отредактировано');
             return redirect(route('transportdatatypes'));
         }
 
-        return redirect(route('transportdatatypes.edit',$id))
+        return redirect(route('transportdatatypes.edit', $id))
             ->withErrors($validator)
             ->withInput();
     }
     public function delete($id)
     {
         $item = DataType::find($id);
-        if ($item){
-            session()->flash('message', 'Удалён тип - '.$item->name.' '.$item->surname);
+        if ($item) {
+            session()->flash('message', 'Удало поле - ' . $item->name . ' ' . $item->surname);
             $item->delete();
         }
         return redirect(route('transportdatatypes'));
@@ -96,19 +96,10 @@ class TransportDataTypesController extends Controller
 
     public function validateRequest(Request $request, $id = null)
     {
-//        if($id){
-            $rules = [
-                'name' => 'required|max:255',
-                'code' => 'required|max:25|unique:datatypes,code,'.$id
-            ];
-//        }
-//        else{
-//            $rules = [
-//                'name' => 'required|max:255',
-//                'code' => 'required|unique:datatypes|max:25'
-//            ];
-//        }
-        //dd($rules);
+        $rules = [
+            'name' => 'required|max:255',
+            'code' => 'required|max:25|unique:datatypes,code,' . $id
+        ];
         $message = [
             'name.required' => 'Поле Название обязательно для заполнения',
             'name.max' => 'Длина поле Название должна быть до :max символов',

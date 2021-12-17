@@ -15,7 +15,7 @@ class DataType extends Model
     const FORTRANSPORT = 1;
     const FORPERSON = 2;
 
-    public function storeRecord($request)
+    public static function storeRecord($request)
     {
         $item = new DataType;
         $item = self::saveRecord($item, $request);
@@ -23,7 +23,7 @@ class DataType extends Model
         return $item;
     }
 
-    public function updateRecord($request, $id)
+    public static function updateRecord($request, $id)
     {
         $item = DataType::find($id);
         $item = self::saveRecord($item, $request);
@@ -31,7 +31,7 @@ class DataType extends Model
         return $item;
     }
 
-    public function saveRecord($item, $request)
+    public static function saveRecord($item, $request)
     {
         $item->name = $request->name;
         $item->code = $request->code;
@@ -41,5 +41,9 @@ class DataType extends Model
         $item->save();
 
         return $item;
+    }
+
+    public static function getDataTypesForCar(){
+        return DataType::where('forwho', self::FORTRANSPORT)->get();
     }
 }

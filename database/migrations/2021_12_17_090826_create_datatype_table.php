@@ -13,7 +13,7 @@ class CreateDatatypeTable extends Migration
      */
     public function up()
     {
-        Schema::create('transportdatatypes', function (Blueprint $table) {
+        Schema::create('datatypes', function (Blueprint $table) {
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
@@ -30,6 +30,6 @@ class CreateDatatypeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transportdatatypes');
+        Schema::dropIfExists('datatypes');
     }
 }

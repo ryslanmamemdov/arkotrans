@@ -21,7 +21,7 @@
                 </thead>
                 @if ($item)
                     @php
-                    $datatype = DataType::TYPE;
+                    $datatype = \app\Models\DataType::TYPE;
                     @endphp
                     <tbody>
                     @foreach ($item as $i)
