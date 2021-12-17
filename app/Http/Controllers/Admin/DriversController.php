@@ -28,14 +28,16 @@ class DriversController extends Controller
     public function index(Request $request)
     {
         $item = Driver::all();
+        $title = 'Все водители';
 
-        return view('admin.drivers.index', ['item' => $item]);
+        return view('admin.drivers.index', ['item' => $item, 'title' => $title]);
     }
 
     public function add()
     {
         $item = new Driver();
-        return view('admin.drivers.addedit',['item' => $item]);
+        $title = 'Новый водитель';
+        return view('admin.drivers.addedit',['item' => $item, 'title' => $title]);
     }
 
     public function store(Request $request)
@@ -58,7 +60,8 @@ class DriversController extends Controller
     {
         $item = Driver::find($id);
         if ($item)
-            return view('admin.drivers.addedit', compact('item'));
+            $title = 'Редактировать водителя';
+            return view('admin.drivers.addedit', compact('item', 'title'));
 
         session()->flash('error', 'Не найдено!');
         return redirect(route('drivers'));
@@ -81,9 +84,10 @@ class DriversController extends Controller
     public function delete($id)
     {
         $item = Driver::find($id);
-        if ($item)
+        if ($item){
             session()->flash('message', 'Удалён водитель - '.$item->name.' '.$item->surname);
-            Driver::find($id)->delete();
+            $item->delete();
+        }
         return redirect(route('drivers'));
 
         session()->flash('error', 'Не найдено!');
@@ -93,16 +97,16 @@ class DriversController extends Controller
     public function validateRequest(Request $request)
     {
         $rules = [
-            'name' => 'required|max:255',
-            'surname' => 'required|max:255',
+            'name' => 'required|max:55',
+            'surname' => 'required|max:55',
             'dob' => 'required|date',
             'email' => 'max:255'
         ];
         $message = [
             'name.required' => 'Поле Имя обязательно для заполнения',
-            'name.max' => 'Поле Имя длина должна быть до :max символов',
+            'name.max' => 'Длина поле длина должна быть до :max символов',
             'surname.required' => 'Поле Фамилия обязательно для заполнения',
-            'surname.max' => 'Поле Имя длина должна быть до :max символов',
+            'surname.max' => 'Длина поле Имя должна быть до :max символов',
             'dob.required' => 'Поле День Рождения обязательно для заполнения'
         ];
         return Validator::make($request->all(), $rules, $message);

@@ -7,15 +7,13 @@
 
         <div class="card-body">
             <div class="d-grid gap-2 d-md-block">
-                <a class="btn btn-outline-primary" href="{{route('driver.add')}}" type="button">Новый водитель</a>
+                <a class="btn btn-outline-primary" href="{{route('trailer.add')}}" type="button">Новый прицеп</a>
             </div>
             <table class="table table-hover">
                 <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">День Р.</th>
+                    <th scope="col">Номер</th>
                     <th scope="col">Статус</th>
                     <th scope="col"></th>
                 </tr>
@@ -25,9 +23,7 @@
                     @foreach ($item as $i)
                         <tr>
                             <th scope="row">{{$i->id}}</th>
-                            <td>{{$i->name}}</td>
-                            <td>{{$i->surname}}</td>
-                            <td>{{date('m-d-Y', $i->dob)}}</td>
+                            <td>{{$i->number}}</td>
                             <td>
                                 @if($i->status)
                                     <span class="nav-icon cil-check-circle link-success"></span>
@@ -36,12 +32,12 @@
                                 @endif
                             </td>
                             <td>
-                                <a href="{{route('driver.edit', $i->id)}}" class="link-dark text-decoration-none">
+                                <a href="{{route('car.edit', $i->id)}}" class="link-dark text-decoration-none">
                                     <span class="nav-icon cil-highlighter"></span>
                                 </a>
                                 &nbsp;
-                                <a href="{{route('driver.delete', $i->id)}}"
-                                   onclick="return confirm('Удалить водителя?')" class="link-dark text-decoration-none">
+                                <a href="{{route('car.delete', $i->id)}}"
+                                   onclick="return confirm('Удалить прицеп?')" class="link-dark text-decoration-none">
                                     <span class="nav-icon cil-delete"></span>
                                 </a>
                             </td>
@@ -51,7 +47,7 @@
                 @endif
             </table>
             <div class="d-grid gap-2 d-md-block">
-                <a class="btn btn-outline-primary" href="{{route('driver.add')}}" type="button">Новый водитель</a>
+                <a class="btn btn-outline-primary" href="{{route('trailer.add')}}" type="button">Новый прицеп</a>
             </div>
         </div>
     </div>

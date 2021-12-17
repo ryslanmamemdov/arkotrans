@@ -15,12 +15,16 @@
                 Водители
             </a>
         </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="/cars">
+        <li class="nav-group"  aria-expanded="@if(Request::segment(1) === 'transport') true @else false @endif">
+            <a class="nav-link nav-group-toggle" href="#">
                 <span class="nav-icon cil-car-alt"></span>
                 Транспорт
             </a>
+            <ul class="nav-group-items" style="height:@if(Request::segment(1) === 'transport') auto @else 0 @endif;">
+                <li class="nav-item"><a class="nav-link" href="/transport/cars"><span class="nav-icon"></span> Машины</a></li>
+                <li class="nav-item"><a class="nav-link" href="/transport/trailers"><span class="nav-icon"></span> Прицепы</a></li>
+                <li class="nav-item"><a class="nav-link" href="/transport/datatypes"><span class="nav-icon cil-settings"></span> Типы полей</a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();

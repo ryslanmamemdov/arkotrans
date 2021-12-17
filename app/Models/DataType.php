@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+class DataType extends Model
 {
     use HasFactory;
-    protected $table = 'drivers';
+
+    protected $table = 'datatypes';
+
+    const TYPE = ['NUM' => 1, 'STR' => 2, 'DATE' => 3];
+    const FORTRANSPORT = 1;
+    const FORPERSON = 2;
 
     public function storeRecord($request)
     {
-        $item = new Driver;
+        $item = new DataType;
         $item = self::saveRecord($item, $request);
 
         return $item;
@@ -20,19 +25,18 @@ class Driver extends Model
 
     public function updateRecord($request, $id)
     {
-        $item = Driver::find($id);
+        $item = DataType::find($id);
         $item = self::saveRecord($item, $request);
 
         return $item;
     }
 
-    public function saveRecord($item, $request){
+    public function saveRecord($item, $request)
+    {
         $item->name = $request->name;
-        $item->surname = $request->surname;
-        $item->dob = strtotime($request->dob);
-        $item->status = ($request->status)?1:0;
-        if ($request->email)
-            $item->email = $request->email;
+        $item->code = $request->code;
+        $item->type = $request->type;
+        $item->forwho = $request->forwho;
 
         $item->save();
 

@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Driver extends Model
+class Transport extends Model
 {
     use HasFactory;
-    protected $table = 'drivers';
+    protected $table = 'transports';
+    const CARS = 1;
+    const TRAILERS = 2;
 
     public function storeRecord($request)
     {
-        $item = new Driver;
+        $item = new Transport;
         $item = self::saveRecord($item, $request);
 
         return $item;
@@ -20,19 +22,16 @@ class Driver extends Model
 
     public function updateRecord($request, $id)
     {
-        $item = Driver::find($id);
+        $item = Transport::find($id);
         $item = self::saveRecord($item, $request);
 
         return $item;
     }
 
     public function saveRecord($item, $request){
-        $item->name = $request->name;
-        $item->surname = $request->surname;
-        $item->dob = strtotime($request->dob);
+        $item->number = $request->number;
+        $item->type = $request->type;
         $item->status = ($request->status)?1:0;
-        if ($request->email)
-            $item->email = $request->email;
 
         $item->save();
 

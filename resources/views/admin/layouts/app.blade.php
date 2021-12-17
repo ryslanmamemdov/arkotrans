@@ -14,6 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@4.1.0/dist/css/coreui.min.css" rel="stylesheet"
         crossorigin="anonymous">
     <link href="{{ asset('css/icon.css') }}" rel="stylesheet">
+    <link href="https://coreui.io/demo/4.0/free/css/style.css" rel="stylesheet">
 </head>
 
 <body>

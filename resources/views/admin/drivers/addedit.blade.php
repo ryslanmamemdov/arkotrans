@@ -3,7 +3,7 @@
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h5>Водитель</h5>
+            <h5>{{$title}}</h5>
         </div>
         <div class="card-body">
             <form class="row g-3" method="POST" action="{{ ($item && $item->id)?route('driver.update', $item->id):route('driver.store') }}">
@@ -24,6 +24,16 @@
                 <div class="col-md-6">
                     <label class="form-label" for="email">Е-майл</label>
                     <input class="form-control" id="email" name="email" value="{{ ($item && $item->email)?$item->email:old('email') }}" type="email" placeholder="vasja@mail.ru">
+                </div>
+                <div class="col-md-12">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" id="status" name="status"
+                            @if ($item && $item->status || old('status'))
+                               checked
+                            @endif
+                        type="checkbox">
+                        <label class="form-check-label" for="status">Cтатус</label>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <button type="submit" class="btn btn-outline-primary">Сохранить</button>
